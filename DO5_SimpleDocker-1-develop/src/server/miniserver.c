@@ -8,7 +8,7 @@ int main()
     {
         printf("Content-type: text/html\r\n\r\n");
         printf("<html><body><h1>Hello World!</h1></body></html>\r\n");
-      # printf("<html><body><h1>created for School21 - trosstar student</h1></body></html>\r\n");
+
     }
     return 0;
 }
