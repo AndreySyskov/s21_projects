@@ -1,10 +1,8 @@
 name: CI_CD for DO5_Simple_docker Project 
-
 on:
   push:
     paths:
       - 'DO5_SimpleDocker-1-develop/04'
-
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -18,7 +16,6 @@ jobs:
           --health-cmd "curl --fail http://localhost/ || exit 1"
           --health-interval 30s
           --health-timeout 10s
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
