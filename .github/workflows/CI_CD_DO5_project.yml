@@ -17,11 +17,10 @@ on:
               --health-interval 30s
               --health-timeout 10s
 
-    steps:
-      - name: Checkout code
+        steps:
+              - name: Checkout code
         uses: actions/checkout@v2
-
-      - name: Build Docker Image
+                - name: Build Docker Image
         run: |
           docker build -t miniserver:1.0 .
           - name: Wait for web service to be ready
