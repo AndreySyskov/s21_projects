@@ -1,6 +1,6 @@
 name: CI_CD for DO5_Simple_docker Project 
 
-on:
+  on:
     push:
     paths:
       - 'DO5_SimpleDocker-1-develop/04'
