@@ -18,3 +18,21 @@ jobs:
           --health-cmd "curl --fail http://localhost/ || exit 1"
           --health-interval 30s
           --health-timeout 10s
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Build_docker_image
+        run: |
+          docker build -t miniserver:1.0 .
+
+      - name: Wait for web service to be ready
+        run: |
+          for i in {1..10}; do \
+            curl -f http://localhost:80 && break || sleep 6; \
+          done
+
+      - name: Run Tests
+        run: |
+          curl -f http://localhost:80/ | grep "Hallo"
+
