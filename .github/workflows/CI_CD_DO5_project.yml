@@ -22,10 +22,10 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-        
+
       - name: Build Docker Image
         run: |
-          docker build -t miniserver:1.0 .
+          docker build -t miniserver:1.0 . 
 
       - name: Wait for web service to be ready
         run: |
