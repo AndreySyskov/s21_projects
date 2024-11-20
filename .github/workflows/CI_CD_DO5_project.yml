@@ -16,4 +16,7 @@ jobs:
           --health-cmd "curl --fail http://localhost/ || exit 1"
           --health-interval 30s
           --health-timeout 10s
-
+          
+        steps:
+        - name: Checkout code
+        uses: actions/checkout@v2
