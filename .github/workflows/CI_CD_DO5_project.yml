@@ -1,22 +1,22 @@
 name: CI_CD for DO5_Simple_docker Project 
-on:
-    push:
-    paths:
-      - 'DO5_SimpleDocker-1-develop/04'
-    jobs:
-      test:
-      runs-on: ubuntu-latest
+    on:
+        push:
+        paths:
+          - 'DO5_SimpleDocker-1-develop/04'
+        jobs:
+          test:
+          runs-on: ubuntu-latest
     
-    services:
-      web:
-        image: nginx
-        ports:
-          - 80:80
-        options: >-
-          --health-cmd "curl --fail http://localhost/ || exit 1"
-          --health-interval 30s
-          --health-timeout 10s
-          --health-retries 5
+        services:
+          web:
+            image: nginx
+            ports:
+              - 80:80
+            options: >-
+              --health-cmd "curl --fail http://localhost/ || exit 1"
+              --health-interval 30s
+              --health-timeout 10s
+              --health-retries 5
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
