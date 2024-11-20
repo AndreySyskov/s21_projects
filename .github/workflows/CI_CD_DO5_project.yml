@@ -4,9 +4,9 @@ on:
   push:
     paths:
       - 'DO5_SimpleDocker-1-develop/04'
-jobs:
-    test:
-    runs-on: ubuntu-latest
+    jobs:
+      test:
+      runs-on: ubuntu-latest
     
     services:
       web:
