@@ -1,0 +1,38 @@
+name: CI_CD for DO5_Simple_docker Project 
+
+on:
+  push:
+    paths:
+      - 'DO5_SimpleDocker-1-develop/04'
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    services:
+      web:
+        image: nginx
+        ports:
+          - 80:80
+        options: >-
+          --health-cmd "curl --fail http://localhost/ || exit 1"
+          --health-interval 30s
+          --health-timeout 10s
+          --health-retries 5
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Build Docker Image
+        run: |
+          docker build -t miniserver:1.0 .
+          - name: Wait for web service to be ready
+    run: |
+      for i in {1..10}; do \
+        curl -f http://localhost:80 && break || sleep 6; \
+      done
+
+     - name: Run Tests
+    run: |
+      # Здесь вы можете запустить ваши тесты
+      # Например, если у вас есть тесты в Node.js:
+      curl -f http://localhost:80/ | grep "Hallo"
