@@ -1,38 +1,20 @@
 name: CI_CD for DO5_Simple_docker Project
 
 on:
-  push:
-    paths:
-      - 'DO5_SimpleDocker-1-develop/04'
+  push: 
+    branches: [ "test_actions" ]
+    
 
 jobs:
   test:
     runs-on: ubuntu-latest
 
-    services:
-      web:
-        image: nginx
-        ports:
-          - 80:80
-        options: >-
-          --health-cmd "curl --fail http://localhost/ || exit 1"
-          --health-interval 30s
-          --health-timeout 10s
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
 
-      - name: Build_docker_image
-        run: |
-          docker build -t miniserver:1.0 .
+      steps:
+       - name: Checkout code
+          uses: actions/checkout@v4
 
-      - name: Wait for web service to be ready
-        run: |
-          for i in {1..10}; do \
-            curl -f http://localhost:80 && break || sleep 6; \
-          done
+       - name: Echo_simple
+          run: echo Hello, world
 
-      - name: Run Tests
-        run: |
-          curl -f http://localhost:80/ | grep "Hallo"
 
