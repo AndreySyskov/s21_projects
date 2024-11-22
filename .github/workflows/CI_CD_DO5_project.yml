@@ -9,9 +9,18 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout
       - uses: actions/checkout@v4
 
       - name: Echo_simple
-        run: echo "Hello, world"
+        run: |
+          echo "Hello, world"
+          pwd
+
+      - name: Install FastCGI
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libfcgi-dev build-essential
+        
 
 
