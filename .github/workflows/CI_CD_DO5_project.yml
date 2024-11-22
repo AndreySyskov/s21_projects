@@ -1,20 +1,17 @@
-name: CI_CD for DO5_Simple_docker Project
+name: "CI_CD for DO5_Simple_docker Project"
 
 on:
   push: 
     branches: [ "test_actions" ]
     
-
 jobs:
   test:
     runs-on: ubuntu-latest
 
+    steps:
+      - uses: actions/checkout@v4
 
-      steps:
-       
-       - uses: actions/checkout@v4
-
-       - name: Echo_simple
-          run: echo Hello, world
+      - name: Echo_simple
+        run: echo "Hello, world"
 
 
