@@ -25,6 +25,6 @@ jobs:
           cd DO5_SimpleDocker-1-develop/src/04/
           gcc -o miniserver miniserver.c -lfcgi
           ls -l
-          spawn-fcgi -p 8080 ./miniserver
+          spawn-fcgi -p 8080 -n ./miniserver
         
 
