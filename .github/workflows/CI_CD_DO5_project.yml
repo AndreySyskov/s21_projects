@@ -24,5 +24,6 @@ jobs:
         run: |
           cd DO5_SimpleDocker-1-develop/src/04/
           gcc -o miniserver miniserver.c -lfcgi
+          ls -l
         
 
