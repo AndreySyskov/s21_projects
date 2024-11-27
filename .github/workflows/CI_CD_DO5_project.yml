@@ -24,7 +24,7 @@ jobs:
       
       - name: Install and start NGINX
         run: |
-          #sudo apt-get install nginx
+          
           cd DO5_SimpleDocker-1-develop/src/04/
           sudo cp nginx.conf /etc/nginx/nginx.conf
           sudo systemctl restart nginx.service
