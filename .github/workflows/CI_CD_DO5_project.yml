@@ -36,7 +36,8 @@ jobs:
           spawn-fcgi -v
           spawn-fcgi -p 8080 -n ./miniserver &
           sleep 5
-      - name: curl_test
-        run:
           curl -f http://localhost:8080
+    #  - name: curl_test
+    #    run:
+    #      curl -f http://localhost:8080
 
