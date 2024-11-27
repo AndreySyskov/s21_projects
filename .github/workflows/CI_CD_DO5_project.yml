@@ -38,5 +38,5 @@ jobs:
           sleep 5
       - name: curl_test
         run:
-          curl http://localhost/81
+          curl http://localhost:81
 
