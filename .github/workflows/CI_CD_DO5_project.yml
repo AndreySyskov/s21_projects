@@ -30,7 +30,7 @@ jobs:
 
       - name: Build
         run: |
-          
+          pwd
           gcc -o miniserver miniserver.c -lfcgi
           ls -l
           spawn-fcgi -v
