@@ -22,11 +22,11 @@ jobs:
           sudo apt-get install -y libfcgi-dev build-essential
           sudo apt install spawn-fcgi
       
-      - name: Install and start NGINX
-        run: |
-          sudo apt-get install nginx
-          cd DO5_SimpleDocker-1-develop/src/04/
-          sudo cp nginx.conf /etc/nginx/nginx.conf
+     # - name: Install and start NGINX
+     #   run: |
+     #     sudo apt-get install nginx
+     #     cd DO5_SimpleDocker-1-develop/src/04/
+     #     sudo cp nginx.conf /etc/nginx/nginx.conf
 
       - name: Build
         run: |
@@ -38,5 +38,5 @@ jobs:
           sleep 5
       - name: curl_test
         run:
-          curl http://localhost:81
+          curl -f http://localhost:8080
 
