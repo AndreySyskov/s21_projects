@@ -28,7 +28,7 @@ jobs:
           gcc -o miniserver miniserver.c -lfcgi
           ls -l
           spawn-fcgi -v
-          spawn-fcgi -p 8080 -n ./
+          spawn-fcgi -p 8080 -n ./miniserver
           sleep 5
       - name: curl_test
         run:
