@@ -30,7 +30,7 @@ jobs:
 
       - name: Build
         run: |
-          pwd
+          cd DO5_SimpleDocker-1-develop/src/04/
           gcc -o miniserver miniserver.c -lfcgi
           ls -l
           spawn-fcgi -v
