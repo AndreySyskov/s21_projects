@@ -6,12 +6,11 @@ on:
     
 jobs:
   test:
-    runs-on: VM_on_HP
+    runs-on: [ self-hosted, VM_on_HP ]
 
    # services: 
    #   nginx: 
    #     image: nginx:latest 
-
 
     steps:
       - uses: actions/checkout@v4
