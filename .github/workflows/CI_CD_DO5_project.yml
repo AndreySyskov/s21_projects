@@ -20,6 +20,8 @@ jobs:
 
       - name: Install FastCGI
         run: |
+          pwd
+          echo Install FastCGI
           sudo apt-get update
           sudo apt-get install -y libfcgi-dev build-essential
           sudo apt install spawn-fcgi
@@ -27,6 +29,8 @@ jobs:
       - name: Install and start NGINX
         working-directory: DO5_SimpleDocker-1-develop/src/03/
         run: |
+           pwd
+           echo Install NGINX
            sudo cp nginx.conf /etc/nginx/nginx.conf
            sudo systemctl restart nginx
       #    sudo systemctl enable nginx
