@@ -6,7 +6,7 @@ on:
     
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: VM_on_HP
 
    # services: 
    #   nginx: 
@@ -21,21 +21,21 @@ jobs:
           echo "Hello, world"
           pwd
 
-      - name: Install FastCGI
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y libfcgi-dev build-essential
-          sudo apt install spawn-fcgi
+      #- name: Install FastCGI
+      #  run: |
+      #    sudo apt-get update
+      #    sudo apt-get install -y libfcgi-dev build-essential
+      #    sudo apt install spawn-fcgi
       
-      - name: Install and start NGINX
-        run: |
+      #- name: Install and start NGINX
+      #  run: |
           
-          cd DO5_SimpleDocker-1-develop/src/04/
-          sudo cp nginx.conf /etc/nginx/nginx.conf
-          sudo systemctl status nginx
-          sudo systemctl enable nginx
-          sudo systemctl start nginx
-          sudo systemctl status nginx
+      #    cd DO5_SimpleDocker-1-develop/src/04/
+      #    sudo cp nginx.conf /etc/nginx/nginx.conf
+      #    sudo systemctl status nginx
+      #    sudo systemctl enable nginx
+      #    sudo systemctl start nginx
+      #    sudo systemctl status nginx
 
 
       - name: Build
