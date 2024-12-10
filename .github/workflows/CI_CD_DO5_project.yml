@@ -6,7 +6,7 @@ on:
     
 jobs:
   test:
-    runs-on: [ self-hosted, VM_on_HP ]
+    runs-on: [ on_VM_hosted ]
 
    # services: 
    #   nginx: 
