@@ -49,6 +49,6 @@ jobs:
           sleep 5
       - name: Postman_test
         working-directory: DO5_SimpleDocker-1-develop/src/03/
-        run: newman run New\ Collection.postman_collection.json
+        run: newman run postman_test.json
 
 
