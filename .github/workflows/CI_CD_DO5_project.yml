@@ -21,11 +21,10 @@ jobs:
       - name: Install FastCGI
         run: |
           pwd
+          echo ${{ secrets.SUDO_PASSWORD }} | sudo -S apt-get update
+          echo ${{ secrets.SUDO_PASSWORD }} | sudo -S apt-get install -y libfcgi-dev build-essential
+          echo ${{ secrets.SUDO_PASSWORD }} | sudo -S apt install spawn-fcgi
 
-          
-          sudo apt-get update
-          sudo apt-get install -y libfcgi-dev build-essential
-          sudo apt install spawn-fcgi
       
       - name: Install and start NGINX
         working-directory: DO5_SimpleDocker-1-develop/src/03/
