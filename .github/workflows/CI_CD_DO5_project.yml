@@ -47,6 +47,8 @@ jobs:
           spawn-fcgi -v
           spawn-fcgi -p 8080 -n ./miniserver &
           sleep 5
-          curl -f http://localhost:81
+      - name: Postman_test
+        working-directory: DO5_SimpleDocker-1-develop/src/03/
+        run: newman run New\ Collection.postman_collection.json
 
 
