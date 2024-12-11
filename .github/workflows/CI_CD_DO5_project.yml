@@ -30,6 +30,7 @@ jobs:
         working-directory: DO5_SimpleDocker-1-develop/src/03/
         run: |
            pwd
+           echo "$USER ALL=(ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/nopasswd
            
            sudo cp nginx.conf /etc/nginx/nginx.conf
            sudo systemctl restart nginx
