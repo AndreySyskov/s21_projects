@@ -13,20 +13,20 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Echo_simple
-        run: |
-          echo "Hello, world"
-          pwd
+      #- name: Echo_simple
+      #  run: |
+      #    echo "Hello, world"
+      #    pwd
 
-      - name: Install FastCGI
-        run: |
-          pwd
-          echo ${{ secrets.SUDO_PASSWORD }} | sudo -S apt-get update
-          echo ${{ secrets.SUDO_PASSWORD }} | sudo -S apt-get install -y libfcgi-dev build-essential
-          echo ${{ secrets.SUDO_PASSWORD }} | sudo -S apt install spawn-fcgi
+      #- name: Install FastCGI
+      #  run: |
+      #    pwd
+      #    echo ${{ secrets.SUDO_PASSWORD }} | sudo -S apt-get update
+      #    echo ${{ secrets.SUDO_PASSWORD }} | sudo -S apt-get install -y libfcgi-dev build-essential
+      #    echo ${{ secrets.SUDO_PASSWORD }} | sudo -S apt install spawn-fcgi
 
       
-      - name: Install and start NGINX
+      - name: restart NGINX
         working-directory: DO5_SimpleDocker-1-develop/src/03/
         run: |
            pwd
