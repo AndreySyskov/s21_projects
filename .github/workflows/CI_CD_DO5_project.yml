@@ -1,54 +1,22 @@
 name: "CI_CD for DO5_Simple_docker Project"
 
 on:
-  push: 
+  push:
     branches: [ "DO5_Part_01" ]
-    
+
 jobs:
   test:
-    runs-on: [ on_VM_hosted ]
- 
+    runs-on: on_VM_hosted
 
     steps:
       - uses: actions/checkout@v4
+
       - name: Docker_pull
         run: docker pull nginx
+
       - name: Docker_images
         run: docker images
-           
-      #    pwd
 
-      #- name: Install FastCGI
-      #  run: |
-      #    pwd
-      #    echo ${{ secrets.SUDO_PASSWORD }} | sudo -S apt-get update
-      #    echo ${{ secrets.SUDO_PASSWORD }} | sudo -S apt-get install -y libfcgi-dev build-essential
-      #    echo ${{ secrets.SUDO_PASSWORD }} | sudo -S apt install spawn-fcgi
-
-      
-      #- name: restart NGINX
-      #  working-directory: DO5_SimpleDocker-1-develop/src/03/
-      #  run: |
-      #     pwd
-      #     echo "$USER ALL=(ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/nopasswd
-           
-           sudo cp nginx.conf /etc/nginx/nginx.conf
-           sudo systemctl restart nginx
-      #    sudo systemctl enable nginx
-      #    sudo systemctl start nginx
-      #    sudo systemctl status nginx
-
-
-      #- name: Build
-      #  working-directory: DO5_SimpleDocker-1-develop/src/03/
-      #  run: |
-
-       #   gcc -o miniserver miniserver.c -lfcgi
-        #  spawn-fcgi -v
-         # spawn-fcgi -p 8080 -n ./miniserver &
-         # sleep 5
       - name: Postman_test
         working-directory: DO5_SimpleDocker-1-develop/src/01/
         run: newman run postman_test.json
-
-
