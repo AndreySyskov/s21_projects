@@ -1,0 +1,49 @@
+{
+	"info": {
+		"_postman_id": "3fca0ffe-e66b-465d-9a75-560218dc0412",
+		"name": "DO5_Part_01",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "40363781"
+	},
+	"item": [
+		{
+			"name": "New Request",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Проверка содержимого страницы\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Welcome to nginx!\");",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:80",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "80"
+				}
+			},
+			"response": []
+		}
+	]
+}
