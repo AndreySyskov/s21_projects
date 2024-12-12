@@ -11,10 +11,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-
       - name: Docker_pull
         run: docker pull nginx
-
       - name: Docker_images
         run: docker images
            
