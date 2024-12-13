@@ -48,7 +48,7 @@ jobs:
         run: newman run postman_test.json
 
   test_2:
- #    runs_on: on_VM_hosted
+    runs-on: on_VM_hosted
       
     steps:
       - uses: actions/checkout@v4
