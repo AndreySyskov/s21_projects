@@ -17,6 +17,15 @@ jobs:
       - name: Docker_images
         run: docker images
 
+      - name: Start_docker_image_nginx
+        run: docker run -d nginx
+
+      - name: Docker_inspect
+        run: |
+          first_word=$(docker ps | sed -n '2p' | awk '{print $1}')
+          echo "output=$output" >> $GITHUB_ENV
+          docker inspect ${{ env.output }}
+
       - name: Postman_test
         working-directory: DO5_SimpleDocker-1-develop/src/01/
         run: newman run postman_test.json
