@@ -23,7 +23,7 @@ jobs:
       - name: Docker_inspect
         run: |
           first_word=$(docker ps | sed -n '2p' | awk '{print $1}')
-          echo "output=$output" >> $GITHUB_ENV
+          echo "$output" >> $GITHUB_ENV
           docker inspect ${{ env.output }}
 
       - name: Postman_test
