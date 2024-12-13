@@ -46,3 +46,12 @@ jobs:
       - name: Postman_test
         working-directory: DO5_SimpleDocker-1-develop/src/01/
         run: newman run postman_test.json
+
+  job: test_2
+    runs_on: on_VM_hosted
+      
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: test
+        run: docker ps -q 
