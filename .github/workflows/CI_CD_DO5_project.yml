@@ -40,9 +40,3 @@ jobs:
       - name: Postman_test
         working-directory: DO5_SimpleDocker-1-develop/src/01/
         run: newman run postman_test.json
-if fuser -k 80/tcp; then
-            echo "Port 80 is in use. Exiting with error."
-            exit 1
-          else
-            echo "Port 80 is not in use."
-          fi
