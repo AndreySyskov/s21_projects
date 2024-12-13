@@ -22,9 +22,10 @@ jobs:
 
       - name: Docker_inspect
         run: |
-          output=$(docker ps | sed -n '2p' | awk '{print $1}')
-          echo "$output" >> $GITHUB_ENV
-          docker inspect ${{ env.output }}
+          output=$(docker ps -q)
+          docker inspect $output
+         # echo $output >> $GITHUB_ENV
+         # docker inspect ${{ env.output }}
 
       - name: Postman_test
         working-directory: DO5_SimpleDocker-1-develop/src/01/
