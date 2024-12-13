@@ -20,13 +20,29 @@ jobs:
       - name: Start_docker_image_nginx
         run: docker run -d nginx
 
-      - name: Docker_inspect
+      - name: Docker_inspect_and_stop
         run: |
           output=$(docker ps -q)
           docker inspect $output
          # echo $output >> $GITHUB_ENV
          # docker inspect ${{ env.output }}
+          docker stop $output
+          if docker ps -q | grep $output; then
+            echo "Container in use. Exiting with error."
+            exit 1
+          else
+            echo "OK"
+          fi
+
+      - name: Docker_whith_ports
+        run: docker -d -p 80:80 -p 443:443 nginx
 
       - name: Postman_test
         working-directory: DO5_SimpleDocker-1-develop/src/01/
         run: newman run postman_test.json
+if fuser -k 80/tcp; then
+            echo "Port 80 is in use. Exiting with error."
+            exit 1
+          else
+            echo "Port 80 is not in use."
+          fi
