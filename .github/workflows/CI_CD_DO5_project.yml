@@ -47,7 +47,7 @@ jobs:
         working-directory: DO5_SimpleDocker-1-develop/src/01/
         run: newman run postman_test.json
 
-  job: test_2
+  test_2:
     runs_on: on_VM_hosted
       
     steps:
