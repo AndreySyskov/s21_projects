@@ -76,6 +76,6 @@ jobs:
           cd DO5_SimpleDocker-1-develop/src/02/
           docker export -o container.tar $(docker ps -q)
           docker stop $(docker ps -q)
-          docker rmi nginx:lastest
+          docker rmi nginx:latest
           docker ps -qa
 
