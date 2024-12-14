@@ -60,3 +60,4 @@ jobs:
           output=$(docker ps -q)
           echo $output
           docker exec -it $output cat /etc/nginx/nginx.conf
+        tty: true
