@@ -71,3 +71,11 @@ jobs:
           cd DO5_SimpleDocker-1-develop/src/02/
           newman run postman_test_of_status_page.json
 
+      - name: Save_container_and_restart_after_delete_image
+        run: |
+          cd DO5_SimpleDocker-1-develop/src/02/
+          docker export -o container.tar $(docker ps -q)
+          docker stop $(docker ps -q)
+          docker rmi nginx:lastest
+          docker ps -qa
+
