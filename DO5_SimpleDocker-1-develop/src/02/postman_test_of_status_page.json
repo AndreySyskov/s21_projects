@@ -59,7 +59,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost/status",
+					"raw": "http://localhost:80/status",
 					"protocol": "http",
 					"host": [
 						"localhost"
