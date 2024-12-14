@@ -56,7 +56,4 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Docker exec
-        run: |
-          output=$(docker ps -q)
-          echo $output
-          docker exec $output cat /etc/nginx/nginx.conf
+        run: docker exec $(docker ps -q) cat /etc/nginx/nginx.conf
