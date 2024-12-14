@@ -41,7 +41,9 @@ jobs:
           fi
 
       - name: Docker_with_ports  
-        run: docker run -d -p 80:80 -p 443:443 nginx 
+        run: | 
+          docker run -d -p 80:80 -p 443:443 nginx
+          docker ps -q 
 
       - name: Postman_test
         working-directory: DO5_SimpleDocker-1-develop/src/01/
