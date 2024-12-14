@@ -10,10 +10,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Delete all containers
-        run: |
-          docker stop $(docker ps -aq)
-          docker rm $(docker ps -aq)
+      #- name: Delete all containers
+      #  run: |
+      #    docker stop 
+      #    docker rm $(docker ps -aq)
 
       - name: Docker_pull
         run: docker pull nginx
