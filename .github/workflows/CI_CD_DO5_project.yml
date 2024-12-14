@@ -56,9 +56,9 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Docker exec
-        tty: true
+       # tty: true
         run: |
           output=$(docker ps -q)
           echo $output
           docker exec -it $output cat /etc/nginx/nginx.conf
-        #tty: true
+        tty: true
