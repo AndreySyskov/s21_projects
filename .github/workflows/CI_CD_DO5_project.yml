@@ -53,7 +53,8 @@ jobs:
         run: docker exec $(docker ps -q) cat /etc/nginx/nginx.conf
 
       - name: Copy nginx configuration
-        working-directory: DO5_SimpleDocker-1-develop/src/02/
+       # working-directory: DO5_SimpleDocker-1-develop/src/02/
         run: |
           pwd
+          cd ../02/
           docker cp nginx.conf $(docker ps -q):/etc/nginx/nginx.conf
