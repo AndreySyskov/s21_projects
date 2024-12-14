@@ -62,4 +62,4 @@ jobs:
         working-directory: DO5_SimpleDocker-1-develop/src/02/
         run: |
           pwd
-          docker cp nginx.conf $(docker ps -q):/etc/nginx/
+         # docker cp nginx.conf $(docker ps -q):/etc/nginx/
