@@ -81,7 +81,7 @@ jobs:
           docker rmi -f nginx:latest
           docker ps -qa
           docker import container.tar nginx:latest
-          docker run -d -p 80:80 nginx nginx 
+          docker run -d -p 80:80 nginx nginx -g "deamon off"
           
       - name: Postman_test_of_status_page
         run: |
