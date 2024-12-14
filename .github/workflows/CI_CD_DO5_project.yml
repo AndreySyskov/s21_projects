@@ -80,4 +80,9 @@ jobs:
           docker stop $(docker ps -q)
           docker rmi -f nginx:latest
           docker ps -qa
+          docker import container.tar nginx:latest
+          docker run -d -p 80:80 nginx nginx -g "deamon off"
+          
+      - name: Postman_test_of_status_page
+        run: newman run postman_test_of_status_page.json
 
