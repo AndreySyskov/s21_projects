@@ -63,3 +63,7 @@ jobs:
           pwd
           cd DO5_SimpleDocker-1-develop/src/02/
           docker cp nginx.conf $(docker ps -q):/etc/nginx/nginx.conf
+          docker exec $(docker ps -q) nginx -s reload
+          sleep 5
+
+      
