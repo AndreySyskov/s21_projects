@@ -4,7 +4,7 @@ on:
     branches: [ "DO5_Part_01" ]
 
 jobs:
-  test:
+  test_part_01:
     runs-on: on_VM_hosted
 
     steps:
@@ -43,17 +43,19 @@ jobs:
       - name: Docker_with_ports  
         run: | 
           docker run -d -p 80:80 -p 443:443 nginx
-          docker ps -q 
+         # docker ps -q 
 
       - name: Postman_test
         working-directory: DO5_SimpleDocker-1-develop/src/01/
         run: newman run postman_test.json
 
-  test_2:
+  test_part_02:
     runs-on: on_VM_hosted
       
     steps:
       - uses: actions/checkout@v4
 
-      - name: test
-        run: docker ps -q 
+      - name: Docker exec
+        run: |
+          output=$(docker ps -q)
+          docker exec -it $output cat /etc/nginx/nginx.conf
