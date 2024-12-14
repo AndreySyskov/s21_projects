@@ -84,5 +84,7 @@ jobs:
           docker run -d -p 80:80 nginx nginx -g "deamon off"
           
       - name: Postman_test_of_status_page
-        run: newman run postman_test_of_status_page.json
+        run: |
+          cd DO5_SimpleDocker-1-develop/src/02/
+          newman run postman_test_of_status_page.json
 
