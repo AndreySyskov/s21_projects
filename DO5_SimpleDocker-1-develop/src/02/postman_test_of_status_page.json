@@ -1,0 +1,76 @@
+{
+	"info": {
+		"_postman_id": "a625b10f-eca5-43e7-9a21-2461411e8179",
+		"name": "Test part 02",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "40363781"
+	},
+	"item": [
+		{
+			"name": "New Request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"",
+							"pm.test(\"Response contains expected content\", function () {",
+							"    var responseBody = pm.response.text(); // Получаем текст ответа",
+							"",
+							"    // Проверяем, что содержимое соответствует ожиданиям",
+							"    pm.expect(responseBody).to.include(\"Active connections:\"); // Проверка наличия строки",
+							"    pm.expect(responseBody).to.include(\"server accepts handled requests\"); // Проверка наличия строки",
+							"    pm.expect(responseBody).to.include(\"Reading:\"); // Проверка наличия строки",
+							"    pm.expect(responseBody).to.include(\"Writing:\"); // Проверка наличия строки",
+							"    pm.expect(responseBody).to.include(\"Waiting:\"); // Проверка наличия строки",
+							"",
+							"    // Проверяем, что числа в строках корректны (например, являются неотрицательными числами)",
+							"    var connectionsMatch = responseBody.match(/Active connections:\\s*(\\d+)/);",
+							"    var serverRequestsMatch = responseBody.match(/server accepts handled requests\\s*(\\d+)\\s*(\\d+)\\s*(\\d+)/);",
+							"    var readingMatch = responseBody.match(/Reading:\\s*(\\d+)/);",
+							"    var writingMatch = responseBody.match(/Writing:\\s*(\\d+)/);",
+							"    var waitingMatch = responseBody.match(/Waiting:\\s*(\\d+)/);",
+							"",
+							"    // Проверяем, что все совпадения найдены и числа неотрицательные",
+							"    pm.expect(connectionsMatch).to.not.be.null;",
+							"    pm.expect(parseInt(connectionsMatch[1])).to.be.at.least(0);",
+							"",
+							"    pm.expect(serverRequestsMatch).to.not.be.null;",
+							"    for (let i = 1; i <= 3; i++) {",
+							"        pm.expect(parseInt(serverRequestsMatch[i])).to.be.at.least(0);",
+							"    }",
+							"",
+							"    pm.expect(readingMatch).to.not.be.null;",
+							"    pm.expect(parseInt(readingMatch[1])).to.be.at.least(0);",
+							"",
+							"    pm.expect(writingMatch).to.not.be.null;",
+							"    pm.expect(parseInt(writingMatch[1])).to.be.at.least(0);",
+							"",
+							"    pm.expect(waitingMatch).to.not.be.null;",
+							"    pm.expect(parseInt(waitingMatch[1])).to.be.at.least(0);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:80/status",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "80",
+					"path": [
+						"status"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
