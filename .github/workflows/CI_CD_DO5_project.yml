@@ -2,7 +2,7 @@ name: "CI_CD for DO5_Simple_docker Project"
 
 on:
   push: 
-    branches: [ "test_actions" ]
+    branches: [ "DO5_Part_03" ]
     paths:
       - 'DO5_SimpleDocker-1-develop/src/03/**'
     
