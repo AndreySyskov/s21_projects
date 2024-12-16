@@ -87,4 +87,3 @@ jobs:
         run: |
           cd DO5_SimpleDocker-1-develop/src/02/
           newman run postman_test_of_status_page.json
-
