@@ -1,7 +1,7 @@
 
 on:
   push:
-    branches: [ "DO5_Part_01" ]
+    branches: [ "DO5_Part_01_and_02" ]
 
 jobs:
   test_:
