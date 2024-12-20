@@ -19,10 +19,22 @@ jobs:
         run: |
           npm install -g newman
 
+      - name: Create and Run Image
+        working-directory: DO5_SimpleDocker-1-develop/src/04/
+        run: |
+          docker build -t miniserver:1.0 .
+          docker run -dt -p 80:81 miniserver:1.0 
+     
+      - name: Docker_images
+        run: docker images
 
+      - name: Postman_test_of_main_page
+        run: |
+          cd DO5_SimpleDocker-1-develop/src/04/
+          newman run Test_part_04.json --folder "Test_main_page"
 
-      - name: Docker_pull
-        run: docker pull nginx
+   #   - name: Docker_pull
+   #     run: docker pull nginx
 
    #   - name: Docker_images
    #     run: docker images
@@ -63,14 +75,14 @@ jobs:
     #  - name: Docker exec
     #    run: docker exec $(docker ps -q) cat /etc/nginx/nginx.conf
 
-     # - name: Copy nginx configuration
-       # working-directory: DO5_SimpleDocker-1-develop/src/02/
-      #  run: |
-      #    pwd
-      #    cd DO5_SimpleDocker-1-develop/src/02/
-      #    docker cp nginx.conf $(docker ps -q):/etc/nginx/nginx.conf
-      #    docker exec $(docker ps -q) nginx -s reload
-      #    sleep 5
+      - name: Copy nginx configuration
+        working-directory: DO5_SimpleDocker-1-develop/src/04/
+        run: |
+          pwd
+          cd DO5_SimpleDocker-1-develop/src/04/
+          docker cp nginx_status.conf $(docker ps -q):/etc/nginx/nginx.conf
+          docker exec $(docker ps -q) nginx -s reload
+          sleep 5
 
      # - name: Postman_test_of_status_page
      #   run: |
@@ -92,5 +104,5 @@ jobs:
       - name: Postman_test_of_status_page
         run: |
           cd DO5_SimpleDocker-1-develop/src/04/
-          newman run Test_part_04.json
+          newman run Test_part_04.json --folder "Test_status_page"
 
