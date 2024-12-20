@@ -22,7 +22,7 @@ jobs:
       - name: Create and Run Image
         working-directory: DO5_SimpleDocker-1-develop/src/04/
         run: |
-          docker build -t miniserver:1.0
+          docker build -t miniserver:1.0 .
           docker run -dt -p 80:81 miniserver:1.0 
 
    #   - name: Docker_pull
