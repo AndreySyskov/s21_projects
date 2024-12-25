@@ -39,7 +39,10 @@ jobs:
           docker-compose up -d
 
       - name: Docker_images_after_compose
-        run: docker images
+        run: |
+          docker images
+          docker ps --format 'table {{.ID}}\t{{.Names}}\t{{.Ports}}'
+
 
    #   - name: Postman_test_of_main_page
    #     run: |
