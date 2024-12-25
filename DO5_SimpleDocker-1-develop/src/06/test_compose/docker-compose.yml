@@ -7,12 +7,12 @@ services:
 #      - "8080:80"
 #    links:
 #      - miniserver:2.0
-#    volumes:
-#      - ./server/nginx.conf:/etc/nginx/nginx.conf
+    volumes:
+      - ./proxy_server/nginx.conf:/etc/nginx/nginx.conf
 #      - /var/lib/nginx/body
 
   miniserver:
     build:
-      context: .
+      context: ./05
  #   ports:
  #     - "80:81"
