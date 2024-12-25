@@ -18,6 +18,10 @@ jobs:
       - name: Install dependencies
         run: |
           npm install -g newman
+         
+      - name: Install Compose
+        run: |
+          apt-get update
           apt-get install -y docker-compose
 
     #  - name: Create and Run Image
