@@ -18,6 +18,7 @@ jobs:
       - name: Install dependencies
         run: |
           npm install -g newman
+          apt-get install -y docker-compose
 
     #  - name: Create and Run Image
     #    working-directory: DO5_SimpleDocker-1-develop/src/04/
