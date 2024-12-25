@@ -28,6 +28,11 @@ jobs:
       - name: Docker_images
         run: docker images
 
+      - name: Compose
+        run: |
+          cd DO5_SimpleDocker-1-develop/src/06/test_compose
+          docker-compose up -d
+
    #   - name: Postman_test_of_main_page
    #     run: |
    #       cd DO5_SimpleDocker-1-develop/src/04/
