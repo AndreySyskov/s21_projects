@@ -14,5 +14,5 @@ services:
   miniserver:
     build:
       context: ./05
- #   ports:
- #     - "80:81"
+    ports:
+      - "80:81"
