@@ -120,5 +120,5 @@ jobs:
       - name: Postman_test_of_status_page
         run: |
           cd DO5_SimpleDocker-1-develop/src/06/
-          newman run Part_06_postman_test.json 
+          newman run postman_test_Part_06.json 
 
