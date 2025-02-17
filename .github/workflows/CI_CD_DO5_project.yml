@@ -9,7 +9,7 @@ on:
     
 jobs:
   test:
-    runs-on: [VM_runner, self-hosted, linux, ARM64] 
+    runs-on: self-hosted 
  
 
     steps:
