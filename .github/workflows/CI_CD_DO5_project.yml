@@ -26,7 +26,7 @@ jobs:
 
       - name: Docker_inspect_and_stop
         run: |
-          output=$(docker ps -q)
+          output=$(sudo docker ps -q)
           sudo docker inspect $output
           sudo docker stop $output
           if docker ps -q | grep $output; then
