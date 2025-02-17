@@ -9,7 +9,7 @@ on:
     
 jobs:
   test:
-    runs-on: [ "VM_runner" ]
+    runs-on: VM_runner
  
 
     steps:
