@@ -77,7 +77,7 @@ jobs:
           pwd
           sudo docker export -o container.tar $(sudo docker ps -q)
           ls -la
-          sudo docker stop $(docker ps -q)
+          sudo docker stop $(sudo docker ps -q)
           sudo docker rmi -f nginx:latest
           sudo docker ps -qa
           sudo docker import container.tar nginx:latest
