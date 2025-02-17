@@ -16,7 +16,7 @@ jobs:
       #    docker rm $(docker ps -aq)
 
       - name: Docker_pull
-        run: docker pull nginx
+        run: sudo docker pull nginx
 
       - name: Docker_images
         run: docker images
