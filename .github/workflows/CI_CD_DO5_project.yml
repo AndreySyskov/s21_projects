@@ -19,16 +19,16 @@ jobs:
         run: sudo docker pull nginx
 
       - name: Docker_images
-        run: docker images
+        run: sudo docker images
 
       - name: Start_docker_image_nginx
-        run: docker run -d nginx
+        run: sudo docker run -d nginx
 
       - name: Docker_inspect_and_stop
         run: |
           output=$(docker ps -q)
-          docker inspect $output
-          docker stop $output
+          sudo docker inspect $output
+          sudo docker stop $output
           if docker ps -q | grep $output; then
             echo "Container in use. Exiting with error."
             exit 1
@@ -47,7 +47,7 @@ jobs:
 
       - name: Docker_with_ports  
         run: | 
-          docker run -d -p 80:80 -p 443:443 nginx
+          sudo docker run -d -p 80:80 -p 443:443 nginx
          # docker ps -q 
 
       - name: Postman_test
@@ -55,15 +55,15 @@ jobs:
         run: newman run postman_test.json
 
       - name: Docker exec
-        run: docker exec $(docker ps -q) cat /etc/nginx/nginx.conf
+        run: sudo docker exec $(docker ps -q) cat /etc/nginx/nginx.conf
 
       - name: Copy nginx configuration
        # working-directory: DO5_SimpleDocker-1-develop/src/02/
         run: |
           pwd
           cd DO5_SimpleDocker-1-develop/src/02/
-          docker cp nginx.conf $(docker ps -q):/etc/nginx/nginx.conf
-          docker exec $(docker ps -q) nginx -s reload
+          sudo docker cp nginx.conf $(docker ps -q):/etc/nginx/nginx.conf
+          sudo docker exec $(docker ps -q) nginx -s reload
           sleep 5
 
       - name: Postman_test_of_status_page
@@ -75,13 +75,13 @@ jobs:
         run: |
           cd DO5_SimpleDocker-1-develop/src/02/
           pwd
-          docker export -o container.tar $(docker ps -q)
+          sudo docker export -o container.tar $(docker ps -q)
           ls -la
-          docker stop $(docker ps -q)
-          docker rmi -f nginx:latest
-          docker ps -qa
-          docker import container.tar nginx:latest
-          docker run -d -p 80:80 nginx nginx -g "daemon off;"
+          sudo docker stop $(docker ps -q)
+          sudo docker rmi -f nginx:latest
+          sudo docker ps -qa
+          sudo docker import container.tar nginx:latest
+          sudo docker run -d -p 80:80 nginx nginx -g "daemon off;"
           
       - name: Postman_test_of_status_page
         run: |
