@@ -75,7 +75,8 @@ jobs:
         run: |
           cd DO5_SimpleDocker-1-develop/src/02/
           pwd
-          sudo docker export -o container.tar $(sudo docker ps -q)
+          #sudo docker export -o container.tar $(sudo docker ps -q)
+          sudo docker export $(sudo docker ps -q)>container.tar
           ls -la
           sudo docker stop $(sudo docker ps -q)
           sudo docker rmi -f nginx:latest
