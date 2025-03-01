@@ -9,7 +9,7 @@ on:
     
 jobs:
   test:
-    runs-on: [ on_VM_hosted ]
+    runs-on: self-hosted
  
 
     steps:
