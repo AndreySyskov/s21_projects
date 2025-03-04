@@ -50,7 +50,7 @@ jobs:
      #     spawn-fcgi -p 8080 -n ./miniserver &
      #     sleep 5
       - name: Postman_test
-        working-directory: DevOps_7/src/
+        working-directory: DevOps_7-1/src/
         run: newman run application_tests.postman_collection.json
 
 
