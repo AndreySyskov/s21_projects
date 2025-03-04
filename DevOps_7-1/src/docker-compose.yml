@@ -1,0 +1,41 @@
+version: "3.8"                  # версия docker compose
+services:                       # блок, описывающий каждый отдельный сервис
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    ports: 
+      - "5672:5672"
+      - "15672:15672"
+
+  db:
+    image: postgres:15  # Выберите необходимую версию PostgreSQL
+    
+    #restart: always
+    networks:
+      - app-network
+    environment:
+      POSTGRES_USER: postgres  # Имя пользователя, созданного при первом запуске
+      POSTGRES_PASSWORD: password  # Пароль пользователя, созданного при первом запуске
+      POSTGRES_DB: postgres  # Имя базы данных
+    volumes:
+      - ./services/database/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - pg_data:/var/lib/postgresql/data  # Точка монтирования для хранения данных на хосте
+    ports:
+      - "5432:5432"
+  
+  booking-service:
+    build: ./services/booking-service/
+    networks:
+      - app-network
+    ports:
+      - "8083:8083"
+
+
+# Пользовательская сеть
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  pg_data:
+
+
