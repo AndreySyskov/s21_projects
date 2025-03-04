@@ -2,14 +2,14 @@ name: "CI_CD for DO5_Simple_docker Project"
 
 on:
   push: 
-    branches: [ "DO5_Part_03" ]
+    branches: [ "DevOps_7_Part_01" ]
 
     
     
     
 jobs:
   test:
-    runs-on: [ on_VM_hosted ]
+    runs-on: self-hosted
  
 
     steps:
@@ -28,29 +28,29 @@ jobs:
       #    echo ${{ secrets.SUDO_PASSWORD }} | sudo -S apt install spawn-fcgi
 
       
-      - name: restart NGINX
-        working-directory: DO5_SimpleDocker-1-develop/src/03/
-        run: |
-           pwd
-           echo "$USER ALL=(ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/nopasswd
+     # - name: restart NGINX
+     #   working-directory: DO5_SimpleDocker-1-develop/src/03/
+     #   run: |
+     #      pwd
+     #      echo "$USER ALL=(ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/nopasswd
            
-           sudo cp nginx.conf /etc/nginx/nginx.conf
-           sudo systemctl restart nginx
+     #      sudo cp nginx.conf /etc/nginx/nginx.conf
+     #      sudo systemctl restart nginx
       #    sudo systemctl enable nginx
       #    sudo systemctl start nginx
       #    sudo systemctl status nginx
 
 
-      - name: Build
-        working-directory: DO5_SimpleDocker-1-develop/src/03/
-        run: |
+     # - name: Build
+     #   working-directory: DO5_SimpleDocker-1-develop/src/03/
+     #   run: |
 
-          gcc -o miniserver miniserver.c -lfcgi
-          spawn-fcgi -v
-          spawn-fcgi -p 8080 -n ./miniserver &
-          sleep 5
+     #     gcc -o miniserver miniserver.c -lfcgi
+     #     spawn-fcgi -v
+     #     spawn-fcgi -p 8080 -n ./miniserver &
+     #     sleep 5
       - name: Postman_test
-        working-directory: DO5_SimpleDocker-1-develop/src/03/
-        run: newman run postman_test.json
+        working-directory: DevOps_7/src/
+        run: newman run application_tests.postman_collection.json
 
 
