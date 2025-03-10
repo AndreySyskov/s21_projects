@@ -40,13 +40,14 @@ jobs:
           docker images
           docker ps --format 'table {{.ID}}\t{{.Names}}\t{{.Ports}}'
 
-      #- name: Pause for 60 seconds
-      #  run: sleep 60
+      - name: Pause for 60 seconds
+        run: sleep 60
 
       - name: Network_test
         run: |
           docker network inspect bridge
           docker container port src_session-service_1
+          docker logs src_session-service_1
                     
       - name: Postman_test
         working-directory: DevOps_7-1/src/
