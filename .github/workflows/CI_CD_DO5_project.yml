@@ -31,7 +31,7 @@ jobs:
 
       - name: Compose
         run: |
-          cd DevOps_7_Part_01/src/
+          cd DevOps_7-1/src/
           docker-compose build
           docker-compose up -d
 
