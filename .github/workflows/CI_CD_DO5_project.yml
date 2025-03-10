@@ -40,8 +40,8 @@ jobs:
           docker images
           docker ps --format 'table {{.ID}}\t{{.Names}}\t{{.Ports}}'
 
-      - name: Pause for 30 seconds
-        run: sleep 30
+      - name: Pause for 60 seconds
+        run: sleep 60
           
       - name: Postman_test
         working-directory: DevOps_7-1/src/
