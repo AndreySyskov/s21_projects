@@ -48,6 +48,9 @@ jobs:
           docker network inspect bridge
           docker container port src_session-service_1
           docker logs src_session-service_1
+
+      - name: curl_test_localhost
+        run: curl http://localhost
                     
       - name: Postman_test
         working-directory: DevOps_7-1/src/
