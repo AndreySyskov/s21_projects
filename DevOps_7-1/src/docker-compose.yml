@@ -67,7 +67,7 @@ services:                       # блок, описывающий каждый 
       POSTGRES_DB: users_db
     depends_on:
       - db
-      - gateway-service
+     
   hotel-service:
     build: ./services/hotel-service/
     networks:
