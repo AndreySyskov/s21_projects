@@ -163,6 +163,8 @@ services:                       # блок, описывающий каждый 
 
   nginx:
     image: nginx:1.25.5-alpine
+    networks:
+      - app-network
     ports:
       - "8081:8081"
       - "8087:8087"
