@@ -4,51 +4,42 @@ on:
   push: 
     branches: [ "DevOps_7_Part_01" ]
 
-    
-    
-    
 jobs:
-  test:
-    runs-on: self-hosted
- 
+  test_:
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v4
+ 
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16.x'
 
-      #- name: Echo_simple
-      #  run: |
-      #    echo "Hello, world"
-      #    pwd
+      - name: Install dependencies
+        run: |
+          npm install -g newman
+         
+      - name: Install Compose
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y docker-compose
 
-      #- name: Install FastCGI
-      #  run: |
-      #    pwd
-      #    echo ${{ secrets.SUDO_PASSWORD }} | sudo -S apt-get update
-      #    echo ${{ secrets.SUDO_PASSWORD }} | sudo -S apt-get install -y libfcgi-dev build-essential
-      #    echo ${{ secrets.SUDO_PASSWORD }} | sudo -S apt install spawn-fcgi
+     
+      - name: Docker_images
+        run: docker images
 
-      
-     # - name: restart NGINX
-     #   working-directory: DO5_SimpleDocker-1-develop/src/03/
-     #   run: |
-     #      pwd
-     #      echo "$USER ALL=(ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/nopasswd
-           
-     #      sudo cp nginx.conf /etc/nginx/nginx.conf
-     #      sudo systemctl restart nginx
-      #    sudo systemctl enable nginx
-      #    sudo systemctl start nginx
-      #    sudo systemctl status nginx
+      - name: Compose
+        run: |
+          cd DevOps_7_Part_01/src/06/
+          docker-compose build
+          docker-compose up -d
 
-
-     # - name: Build
-     #   working-directory: DO5_SimpleDocker-1-develop/src/03/
-     #   run: |
-
-     #     gcc -o miniserver miniserver.c -lfcgi
-     #     spawn-fcgi -v
-     #     spawn-fcgi -p 8080 -n ./miniserver &
-     #     sleep 5
+      - name: Docker_images_after_compose
+        run: |
+          docker images
+          docker ps --format 'table {{.ID}}\t{{.Names}}\t{{.Ports}}'
+          
       - name: Postman_test
         working-directory: DevOps_7-1/src/
         run: newman run application_tests.postman_collection.json
