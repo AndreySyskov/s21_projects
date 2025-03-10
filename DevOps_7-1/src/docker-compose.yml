@@ -112,7 +112,7 @@ services:                       # блок, описывающий каждый 
       POSTGRES_DB: balances_db
     depends_on:
       - db
-      - booking-service
+      
   report-service:
     build: ./services/report-service/
     networks:
@@ -154,9 +154,12 @@ services:                       # блок, описывающий каждый 
       REPORT_SERVICE_HOST: report-service
       REPORT_SERVICE_PORT: 8086
     depends_on:
-      - db
+      - booking-service
       - hotel-service
       - session-service
+      - payment-service
+      - loyalty-service
+      - report-service
 
 
 
