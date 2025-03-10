@@ -50,7 +50,7 @@ jobs:
           docker logs src_session-service_1
 
       - name: curl_test_localhost
-        run: curl http://localhost
+        run: curl http://localhost:8081
                     
       - name: Postman_test
         working-directory: DevOps_7-1/src/
