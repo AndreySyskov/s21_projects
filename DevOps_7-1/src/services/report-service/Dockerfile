@@ -17,4 +17,4 @@ COPY . .
 RUN apk add --no-cache bash
 RUN chmod +x wait-for-it.sh
 COPY --from=build /app/target/*.jar /app/*.jar
-CMD ["./wait-for-it.sh", "db:5432", "--", "java", "-jar", "/app/*.jar"]
+CMD ["./wait-for-it.sh", "db:5432", "rabbitmq:5672", "--", "java", "-jar", "/app/*.jar"]

@@ -49,6 +49,9 @@ services:                       # блок, описывающий каждый 
     depends_on:
       - db
       - rabbitmq
+      - hotel-service
+      - loyalty-service
+      - payment-service
 
   session-service:
     build: ./services/session-service/
@@ -64,7 +67,7 @@ services:                       # блок, описывающий каждый 
       POSTGRES_DB: users_db
     depends_on:
       - db
-      - rabbitmq
+      - gateway-service
   hotel-service:
     build: ./services/hotel-service/
     networks:
@@ -79,7 +82,7 @@ services:                       # блок, описывающий каждый 
       POSTGRES_DB: hotels_db
     depends_on:
       - db
-      - rabbitmq
+      
   payment-service:
     build: ./services/payment-service/
     networks:
@@ -94,7 +97,7 @@ services:                       # блок, описывающий каждый 
       POSTGRES_DB: payment_db
     depends_on:
       - db
-      - rabbitmq
+     
   loyalty-service:
     build: ./services/loyalty-service/
     networks:
@@ -109,7 +112,7 @@ services:                       # блок, описывающий каждый 
       POSTGRES_DB: balances_db
     depends_on:
       - db
-      - rabbitmq
+      - booking-service
   report-service:
     build: ./services/report-service/
     networks:
@@ -152,7 +155,8 @@ services:                       # блок, описывающий каждый 
       REPORT_SERVICE_PORT: 8086
     depends_on:
       - db
-      - rabbitmq
+      - hotel-service
+      - session-service
 
 
 
