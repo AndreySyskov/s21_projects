@@ -1,27 +1,31 @@
-version: "3.8"                  # версия docker compose
-services:                       # блок, описывающий каждый отдельный сервис
+version: "3.8"
+services:
   rabbitmq:
     image: rabbitmq:3-management-alpine
-    ports: 
+    ports:
       - "5672:5672"
       - "15672:15672"
+    networks:
+      - app-network
 
   db:
-    image: postgres:15  # Выберите необходимую версию PostgreSQL
-    
+    image: postgres:15
     restart: always
     networks:
       - app-network
     environment:
-      POSTGRES_USER: postgres  # Имя пользователя, созданного при первом запуске
-      POSTGRES_PASSWORD: password  # Пароль пользователя, созданного при первом запуске
-      POSTGRES_DB: postgres  # Имя базы данных
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: postgres
     volumes:
       - ./services/database/init.sql:/docker-entrypoint-initdb.d/init.sql
-      - pg_data:/var/lib/postgresql/data  # Точка монтирования для хранения данных на хосте
-    ports:
-      - "5432:5432"
-  
+      - pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
   booking-service:
     restart: always
     build: ./services/booking-service/
@@ -32,7 +36,7 @@ services:                       # блок, описывающий каждый 
     environment:
       POSTGRES_HOST: db
       POSTGRES_PORT: 5432
-      POSTGRES_USER : postgres
+      POSTGRES_USER: postgres
       POSTGRES_PASSWORD: "password"
       POSTGRES_DB: reservations_db
       RABBIT_MQ_HOST: rabbitmq
@@ -48,11 +52,10 @@ services:                       # блок, описывающий каждый 
       LOYALTY_SERVICE_HOST: loyalty-service
       LOYALTY_SERVICE_PORT: 8085
     depends_on:
-      - db
-      - rabbitmq
-      - hotel-service
-      - loyalty-service
-      - payment-service
+      db:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_started
 
   session-service:
     restart: always
@@ -61,16 +64,16 @@ services:                       # блок, описывающий каждый 
       - app-network
     ports:
       - "8081:8081"
-    
     environment:
-      POSTGRES_HOST: bd
+      POSTGRES_HOST: db
       POSTGRES_PORT: 5432
-      POSTGRES_USER : postgres
+      POSTGRES_USER: postgres
       POSTGRES_PASSWORD: "password"
       POSTGRES_DB: users_db
     depends_on:
-      - db
-     
+      db:
+        condition: service_healthy
+
   hotel-service:
     restart: always
     build: ./services/hotel-service/
@@ -79,14 +82,15 @@ services:                       # блок, описывающий каждый 
     ports:
       - "8082:8082"
     environment:
-      POSTGRES_HOST: bd
+      POSTGRES_HOST: db
       POSTGRES_PORT: 5432
-      POSTGRES_USER : postgres
+      POSTGRES_USER: postgres
       POSTGRES_PASSWORD: "password"
       POSTGRES_DB: hotels_db
     depends_on:
-      - db
-      
+      db:
+        condition: service_healthy
+
   payment-service:
     restart: always
     build: ./services/payment-service/
@@ -95,14 +99,15 @@ services:                       # блок, описывающий каждый 
     ports:
       - "8084:8084"
     environment:
-      POSTGRES_HOST: bd
+      POSTGRES_HOST: db
       POSTGRES_PORT: 5432
-      POSTGRES_USER : postgres
+      POSTGRES_USER: postgres
       POSTGRES_PASSWORD: "password"
       POSTGRES_DB: payment_db
     depends_on:
-      - db
-     
+      db:
+        condition: service_healthy
+
   loyalty-service:
     restart: always
     build: ./services/loyalty-service/
@@ -111,14 +116,15 @@ services:                       # блок, описывающий каждый 
     ports:
       - "8085:8085"
     environment:
-      POSTGRES_HOST: bd
+      POSTGRES_HOST: db
       POSTGRES_PORT: 5432
-      POSTGRES_USER : postgres
+      POSTGRES_USER: postgres
       POSTGRES_PASSWORD: "password"
       POSTGRES_DB: balances_db
     depends_on:
-      - db
-      
+      db:
+        condition: service_healthy
+
   report-service:
     restart: always
     build: ./services/report-service/
@@ -129,7 +135,7 @@ services:                       # блок, описывающий каждый 
     environment:
       POSTGRES_HOST: db
       POSTGRES_PORT: 5432
-      POSTGRES_USER : postgres
+      POSTGRES_USER: postgres
       POSTGRES_PASSWORD: "password"
       POSTGRES_DB: statistics_db
       RABBIT_MQ_HOST: rabbitmq
@@ -139,8 +145,11 @@ services:                       # блок, описывающий каждый 
       RABBIT_MQ_QUEUE_NAME: messagequeue
       RABBIT_MQ_EXCHANGE: messagequeue-exchange
     depends_on:
-      - db
-      - rabbitmq
+      db:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_started
+
   gateway-service:
     restart: always
     build: ./services/gateway-service/
@@ -148,7 +157,6 @@ services:                       # блок, описывающий каждый 
       - "8087:8087"
     networks:
       - app-network
-    
     environment:
       SESSION_SERVICE_HOST: session-service
       SESSION_SERVICE_PORT: 8081
@@ -163,31 +171,21 @@ services:                       # блок, описывающий каждый 
       REPORT_SERVICE_HOST: report-service
       REPORT_SERVICE_PORT: 8086
     depends_on:
-      - booking-service
-      - hotel-service
-      - session-service
-      - payment-service
-      - loyalty-service
-      - report-service
+      booking-service:
+        condition: service_started
+      hotel-service:
+        condition: service_started
+      session-service:
+        condition: service_started
+      payment-service:
+        condition: service_started
+      loyalty-service:
+        condition: service_started
+      report-service:
+        condition: service_started
 
-  #nginx:
-  #  build: ./nginx/
-  #  networks:
-  #    - app-network
-  #  ports:
-  #    - "8081:8081"
-  #    - "8087:8087"
-  #  depends_on:
-  #    - gateway-service
-  #    - session-service
-
-
-
-
-# Пользовательская сеть
 networks:
   app-network:
-   # driver: bridge
 
 volumes:
   pg_data:
