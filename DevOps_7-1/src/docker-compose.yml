@@ -9,7 +9,7 @@ services:                       # блок, описывающий каждый 
   db:
     image: postgres:15  # Выберите необходимую версию PostgreSQL
     
-    #restart: always
+    restart: always
     networks:
       - app-network
     environment:
@@ -23,6 +23,7 @@ services:                       # блок, описывающий каждый 
       - "5432:5432"
   
   booking-service:
+    restart: always
     build: ./services/booking-service/
     networks:
       - app-network
@@ -54,9 +55,12 @@ services:                       # блок, описывающий каждый 
       - payment-service
 
   session-service:
+    restart: always
     build: ./services/session-service/
     networks:
       - app-network
+    ports:
+      - "8081:8081"
     
     environment:
       POSTGRES_HOST: bd
@@ -68,6 +72,7 @@ services:                       # блок, описывающий каждый 
       - db
      
   hotel-service:
+    restart: always
     build: ./services/hotel-service/
     networks:
       - app-network
@@ -83,6 +88,7 @@ services:                       # блок, описывающий каждый 
       - db
       
   payment-service:
+    restart: always
     build: ./services/payment-service/
     networks:
       - app-network
@@ -98,6 +104,7 @@ services:                       # блок, описывающий каждый 
       - db
      
   loyalty-service:
+    restart: always
     build: ./services/loyalty-service/
     networks:
       - app-network
@@ -113,6 +120,7 @@ services:                       # блок, описывающий каждый 
       - db
       
   report-service:
+    restart: always
     build: ./services/report-service/
     networks:
       - app-network
@@ -134,7 +142,10 @@ services:                       # блок, описывающий каждый 
       - db
       - rabbitmq
   gateway-service:
+    restart: always
     build: ./services/gateway-service/
+    ports:
+      - "8087:8087"
     networks:
       - app-network
     
@@ -159,18 +170,16 @@ services:                       # блок, описывающий каждый 
       - loyalty-service
       - report-service
 
-  nginx:
-    image: nginx:1.25.5-alpine
-    networks:
-      - app-network
-    ports:
-      - "8081:8081"
-      - "8087:8087"
-    volumes:
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
-    depends_on:
-      - gateway-service
-      - session-service
+  #nginx:
+  #  build: ./nginx/
+  #  networks:
+  #    - app-network
+  #  ports:
+  #    - "8081:8081"
+  #    - "8087:8087"
+  #  depends_on:
+  #    - gateway-service
+  #    - session-service
 
 
 
