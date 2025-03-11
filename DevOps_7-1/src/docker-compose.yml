@@ -9,21 +9,32 @@ services:
       - app-network
 
   db:
-    image: postgres:15
+    image: postgres:16.2
     restart: always
     networks:
       - app-network
+    ports:
+      - "5432:5432"
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: password
+      POSTGRES_PASSWORD: "password"
       POSTGRES_DB: postgres
     volumes:
       - ./services/database/init.sql:/docker-entrypoint-initdb.d/init.sql
       - pg_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
-      interval: 5s
-      timeout: 5s
+      #test: ["CMD-SHELL", "pg_isready -U postgres"]
+      test: >
+        bash -c '
+        psql -U postgres -d users_db -c "SELECT 1;" &&
+        psql -U postgres -d hotels_db -c "SELECT 1;" && 
+        psql -U postgres -d balances_db -c "SELECT 1;" &&
+        psql -U postgres -d reservations_db -c "SELECT 1;" &&
+        psql -U postgres -d payments_db -c "SELECT 1;" &&
+        psql -U postgres -d statistics_db -c "SELECT 1;"
+        '
+      interval: 10s
+      timeout: 10s
       retries: 5
 
   booking-service:
@@ -103,7 +114,7 @@ services:
       POSTGRES_PORT: 5432
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: "password"
-      POSTGRES_DB: payment_db
+      POSTGRES_DB: payments_db
     depends_on:
       db:
         condition: service_healthy
