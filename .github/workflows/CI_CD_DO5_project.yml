@@ -43,11 +43,12 @@ jobs:
       - name: Pause for 60 seconds
         run: sleep 60
 
-      - name: Network_test
+      - name: Network_and_ports_information
         run: |
           docker network inspect bridge
           docker container port src_session-service_1
-          docker logs src_session-service_1
+          docker container port src_gateway-service_1
+          #docker logs src_session-service_1
                     
       - name: Postman_test
         working-directory: DevOps_7-1/src/
