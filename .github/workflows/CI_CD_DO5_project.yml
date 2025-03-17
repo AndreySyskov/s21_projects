@@ -45,9 +45,9 @@ jobs:
 
       - name: Network_and_ports_information
         run: |
-          docker network inspect src_app-network
-          docker container port src_session-service_1
-          docker container port src_gateway-service_1
+          docker network inspect Part_3_app-network
+          docker container port Part_3_session-service_1
+          docker container port Part_3_gateway-service_1
           
                     
       - name: Postman_test
