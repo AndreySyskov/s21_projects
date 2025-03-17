@@ -46,7 +46,7 @@ jobs:
       - name: Network_and_ports_information
         run: |
           docker network ls
-          docker network inspect part_3_app_network
+          docker network inspect part_3_app-network
           docker container port part_3_session-service_1
           docker container port part_3_gateway-service_1
           
