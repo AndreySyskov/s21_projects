@@ -1,8 +1,8 @@
-name: "CI_CD for DO5_Simple_docker Project"
+name: "CI_CD for DevOps7 project"
 
 on:
   push: 
-    branches: [ "DevOps_7_Part_01" ]
+    branches: [ "DevOps_7_Part_03" ]
 
 jobs:
   test_:
@@ -31,7 +31,7 @@ jobs:
 
       - name: Compose
         run: |
-          cd DevOps_7-1/src/
+          cd DevOps_7-1/src/Part_3
           docker-compose build
           docker-compose up -d
 
