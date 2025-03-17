@@ -1,56 +1,58 @@
-name: "CI_CD for DO5_Simple_docker Project"
+name: "CI_CD for DevOps7 project"
 
 on:
   push: 
-    branches: [ "DO5_Part_03" ]
+    branches: [ "DevOps_7_Part_03" ]
 
-    
-    
-    
 jobs:
-  test:
-    runs-on: [ on_VM_hosted ]
- 
+  test_:
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v4
+ 
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16.x'
 
-      #- name: Echo_simple
-      #  run: |
-      #    echo "Hello, world"
-      #    pwd
-
-      #- name: Install FastCGI
-      #  run: |
-      #    pwd
-      #    echo ${{ secrets.SUDO_PASSWORD }} | sudo -S apt-get update
-      #    echo ${{ secrets.SUDO_PASSWORD }} | sudo -S apt-get install -y libfcgi-dev build-essential
-      #    echo ${{ secrets.SUDO_PASSWORD }} | sudo -S apt install spawn-fcgi
-
-      
-      - name: restart NGINX
-        working-directory: DO5_SimpleDocker-1-develop/src/03/
+      - name: Install dependencies
         run: |
-           pwd
-           echo "$USER ALL=(ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/nopasswd
-           
-           sudo cp nginx.conf /etc/nginx/nginx.conf
-           sudo systemctl restart nginx
-      #    sudo systemctl enable nginx
-      #    sudo systemctl start nginx
-      #    sudo systemctl status nginx
-
-
-      - name: Build
-        working-directory: DO5_SimpleDocker-1-develop/src/03/
+          npm install -g newman
+         
+      - name: Install Compose
         run: |
+          sudo apt-get update
+          sudo apt-get install -y docker-compose
 
-          gcc -o miniserver miniserver.c -lfcgi
-          spawn-fcgi -v
-          spawn-fcgi -p 8080 -n ./miniserver &
-          sleep 5
+     
+      - name: Docker_images
+        run: docker images
+
+      - name: Compose
+        run: |
+          cd DevOps_7-1/src/Part_3
+          docker-compose build
+          docker-compose up -d
+
+      - name: Docker_images_after_compose
+        run: |
+          docker images
+          docker ps --format 'table {{.ID}}\t{{.Names}}\t{{.Ports}}'
+
+      - name: Pause for 60 seconds
+        run: sleep 60
+
+      - name: Network_and_ports_information
+        run: |
+          docker network ls
+          docker network inspect part_3_app-network
+          docker container port part_3_session-service_1
+          docker container port part_3_gateway-service_1
+          
+                    
       - name: Postman_test
-        working-directory: DO5_SimpleDocker-1-develop/src/03/
-        run: newman run postman_test.json
+        working-directory: DevOps_7-1/src/
+        run: newman run application_tests.postman_collection.json
 
 
