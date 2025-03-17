@@ -1,4 +1,4 @@
-version: "3.8"
+#version: "3.8"
 services:
   rabbitmq:
     image: rabbitmq:3-management-alpine
@@ -20,7 +20,7 @@ services:
       POSTGRES_PASSWORD: "password"
       POSTGRES_DB: postgres
     volumes:
-      - ./services/database/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ../services/database/init.sql:/docker-entrypoint-initdb.d/init.sql
       - pg_data:/var/lib/postgresql/data
     healthcheck:
       #test: ["CMD-SHELL", "pg_isready -U postgres"]
@@ -35,7 +35,7 @@ services:
         '
       interval: 10s
       timeout: 10s
-      retries: 5
+      retries: 10
 
   booking-service:
     restart: always
